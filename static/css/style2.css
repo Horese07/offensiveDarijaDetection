@@ -1,0 +1,41 @@
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #d0d5d8;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.form-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container.hidden {
+    display: none;
+}
+
+input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #ee002d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.google-btn {
+    background-color: #4285f4;
+    color: white;
+}

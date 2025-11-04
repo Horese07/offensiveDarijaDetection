@@ -1,0 +1,248 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Offensive Speech Detector - News & Lifestyle Magazine">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Offensive Speech Detector</title>
+
+<!-- Favicon -->
+<link rel="icon" href="{% static 'images/favicon.ico' %}">
+
+<!-- Bootstrap & Font Awesome -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  /* Base styling */
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+  }
+
+  /* Navbar */
+  .navbar {
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+  }
+  .navbar.scrolled {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+  .navbar-brand {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #212529 !important;
+  }
+  .navbar-brand .brand-dot {
+    color: #a22ef0;
+  }
+  .nav-link {
+    font-weight: 500;
+    color: #495057 !important;
+    margin: 0 8px;
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #28a745;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after { width: 60%; }
+  .nav-link.active { color: #28a745 !important; }
+
+  /* Buttons */
+  .btn-outline-green {
+    border: 2px solid #28a745;
+    border-radius: 25px;
+    color: #28a745 !important;
+    transition: all 0.3s ease;
+  }
+  .btn-outline-green:hover { background-color: #28a745; color: white !important; }
+
+  /* Search Box */
+  .search-box input { border-radius: 25px 0 0 25px; border-right: none; }
+  .search-box button { border-radius: 0 25px 25px 0; }
+
+  /* Hero area */
+  .hero-area {
+    background: linear-gradient(135deg, #a22ef0, #28a745);
+    color: white;
+    padding: 120px 0 60px;
+    text-align: center;
+  }
+  .hero-area h1 { font-size: 3rem; font-weight: 700; }
+  .hero-area p { font-size: 1.2rem; margin-top: 10px; }
+
+  /* Featured posts */
+  .single-blog-post {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .single-blog-post:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+  .post-title h6 { font-weight: 600; color: #212529; }
+  .post-data p { color: #6c757d; }
+
+  /* Footer */
+  .footer-area {
+    background-color: #ffffff;
+    padding: 60px 0 30px;
+    border-top: 1px solid #dee2e6;
+  }
+  .footer-widget-area h4 { font-weight: 600; margin-bottom: 15px; }
+  .footer-widget-area ul li { margin-bottom: 10px; }
+  .footer-widget-area ul li a { color: #495057; text-decoration: none; transition: color 0.3s; }
+  .footer-widget-area ul li a:hover { color: #28a745; }
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top py-3" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/"><span class="brand-dot">Offensive Speech</span> Detector</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Pages</a></li>
+        <li class="nav-item"><a class="nav-link" href="#list">Contact</a></li>
+      </ul>
+
+      <!-- Search -->
+      <form class="d-flex me-3 search-box" action="#" method="post">
+        <input class="form-control me-0" type="search" placeholder="Search" aria-label="Search" name="search">
+        <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+      </form>
+
+      <!-- Login/Register -->
+      <div class="d-flex">
+        <a href="#" class="btn btn-outline-green me-2">Login</a>
+        <a href="#" class="btn btn-success">Register</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Area -->
+<div class="hero-area">
+  <div class="container">
+    <h1>Detect Offensive Speech</h1>
+    <p>Stay informed with the latest articles and insights on online content moderation.</p>
+    <a href="#featured" class="btn btn-light btn-lg mt-3">Explore Articles</a>
+  </div>
+</div>
+
+<!-- Featured Post Area -->
+<div class="featured-post-area py-5" id="featured">
+  <div class="container">
+    <div class="row">
+      {% for article in articles %}
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="single-blog-post shadow-sm p-3 rounded">
+          <div class="post-thumb mb-3">
+            <a href="{% url 'article_detail' article.id %}">
+              {% if article.image %}
+                <img src="{{ article.image.url }}" alt="{{ article.title }}" class="img-fluid rounded">
+              {% else %}
+                <img src="{% static 'default-article.jpg' %}" alt="Default Image" class="img-fluid rounded">
+              {% endif %}
+            </a>
+          </div>
+          <div class="post-data">
+            <a href="{% url 'article_detail' article.id %}" class="post-title"><h6>{{ article.title }}</h6></a>
+            <p>{{ article.content|truncatewords:30 }}</p>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p>No articles found.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer-area bg-light pt-5">
+  <div class="main-footer-area">
+    <div class="container">
+      <div class="row">
+        <!-- Contact -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-4">
+          <div class="footer-widget-area">
+            <h4>Contact</h4>
+            <ul class="list-unstyled">
+              <li><a href="#">contact@uiz.ac.ma</a></li>
+              <li><a href="#">+212 661 00 20 20</a></li>
+              <li><a href="https://www.uiz.ac.ma/faculte-des-sciences-agadir">FSA Website</a></li>
+              <li>Agadir</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Team -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-4">
+          <div class="footer-widget-area">
+            <h4>Team</h4>
+            <ul class="list-unstyled">
+              <li>AYOUB</li>
+              <li>ABD LAAZIZ</li>
+              <li>LHOUCINE</li>
+              <li>IMANE</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- About -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-4">
+          <div class="footer-widget-area">
+            <h4>About Us</h4>
+            <ul class="list-unstyled">
+              <li><a href="https://www.linkedin.com/in/ayoub-kennouz-7b1465264/">LinkedIn</a></li>
+              <li><a href="https://github.com/ayoubkennouz/blog-django">GitHub</a></li>
+              <li><a href="https://huggingface.co/Abdelaaziz/toxic-darija-bert-classification">Hugging Face</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="list" class="col-12 col-sm-6 col-lg-3 mb-4"></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  // Navbar scroll effect
+  window.addEventListener("scroll", () => {
+    const navbar = document.getElementById("mainNav");
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+</script>
+
+</body>
+</html>

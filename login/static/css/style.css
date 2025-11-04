@@ -1,0 +1,31 @@
+.hero-area {
+  padding: 0 0 60px;
+}
+
+.breaking-news-area {
+  display: flex;
+  align-items: center;
+  background-color: #f3f5f8;
+  overflow: hidden;
+}
+
+.breaking-news-area .news-title {
+  background-color: #ee002d;
+  color: #fff;
+  text-align: center;
+  padding: 0 20px;
+  height: 38px;
+  line-height: 38px;
+  font-weight: 500;
+}
+
+.breaking-news-area .ticker a {
+  display: block;
+  color: #152535;
+  line-height: 38px;
+  transition: 0.3s;
+}
+
+.breaking-news-area .ticker a:hover {
+  color: #ee002d;
+}

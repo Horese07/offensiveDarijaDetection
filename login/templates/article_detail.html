@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+{% block content %}
+<div class="article-container">
+    <!-- Article -->
+    <div class="single-blog-post">
+        <div class="post-thumb">
+            {% if article.image %}
+                <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
+            {% else %}
+                <img src="/static/default-article.jpg" alt="Default Image" class="article-image">
+            {% endif %}
+        </div>
+        <div class="post-data">
+            <h1 class="article-title">{{ article.title }}</h1>
+            <p class="article-content">{{ article.content }}</p>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+        <h2>Comments</h2>
+        {% for comment in comments %}
+        <div class="comment">
+            <div class="comment-avatar"></div>
+            <div class="comment-content">
+                <div class="comment-author">{{ comment.author }}</div>
+                <div class="comment-text">{{ comment.content }}</div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Comment Form -->
+    <div class="comment-form">
+        <h2>Leave a Comment</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="author" placeholder="Your Name" required>
+            <textarea name="content" placeholder="Write your comment here..." required></textarea>
+            <button type="submit">Submit Comment</button>
+        </form>
+    </div>
+</div>
+
+<!-- Fenêtre modale pour afficher le message -->
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <p id="messageText"></p>
+        <button class="close-btn" onclick="closeModal()">OK</button>
+    </div>
+</div>
+
+<script>
+    // Vérifier si un message existe dans le contexte Django
+    const message = "{{ message|escapejs }}";
+    if (message) {
+        const modal = document.getElementById('messageModal');
+        const messageText = document.getElementById('messageText');
+        messageText.textContent = message;
+        window.alert(message);
+        //modal.style.display = 'flex'; // Afficher la fenêtre modale
+    }
+
+    // Fonction pour fermer la fenêtre modale
+    
+</script>
+
+<style>
+    /* Conteneur principal */
+.article-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Article */
+.article-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1e2022;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.article-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.article-content {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+/* Section des commentaires */
+.comments-section {
+    margin-top: 40px;
+    border-top: 2px solid #ddd;
+    padding-top: 20px;
+}
+
+.comments-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #1e2022;
+}
+
+/* Commentaire individuel */
+.comment {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #1e2022;
+    font-size: 1.1rem;
+}
+
+.comment-text {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 5px;
+}
+
+/* Formulaire des commentaires */
+.comment-form {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.comment-form h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #1e2022;
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    font-size: 1rem;
+    color: #333;
+}
+
+.comment-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comment-form button:hover {
+    background-color: #0056b3;
+}
+
+</style>
+{% endblock %}

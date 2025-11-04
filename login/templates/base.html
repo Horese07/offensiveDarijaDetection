@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mon Blog{% endblock %}</title>
+    
+    <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="header-area">
+
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="top-header-content d-flex align-items-center justify-content-between">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <a href="{% url 'home' %}"><img src="{% static 'images/Chouf_tv.png' %}" alt=""></a>
+                            </div>
+
+                            <!-- Login Search Area -->
+                            <div class="login-search-area d-flex align-items-center">
+                                <!-- Login -->
+                                <div class="login d-flex">
+                                    <a href="{% url 'auth' %}">Login</a>
+                                    <a href="#">Register</a>
+                                </div>
+                                <!-- Search Form -->
+                                <div class="search-form">
+                                    <form action="#" method="post">
+                                        <input type="search" name="search" class="form-control" placeholder="Search">
+                                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar Area -->
+        <div class="newspaper-main-menu" id="stickyMenu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="newspaperNav">
+                            
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                                    <li><a href="#">Pages</a></li>
+              
+                                    <li><a href="{% url 'home' %}">Contact</a></li>
+                                    <li><a href="{% url 'add_article' %}">Ajouter un article</a></li>
+                                    <li><a href="{% url 'auth' %}">Connexion</a></li>
+                                    <li><a href="{% url 'article_summary' %}">commentaires</a></li>
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        <!-- Le contenu spécifique de chaque page sera inséré ici -->
+        {% endblock %}
+    </main>
+    
+ 
+    <footer>
+        <
+    </footer>
+</body>
+</html>
